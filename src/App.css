@@ -1,0 +1,431 @@
+/* =========================================
+   PALETA DE COLORES (MODO CLARO POR DEFECTO)
+   ========================================= */
+:root {
+  /* ... tus colores anteriores ... */
+  --primary-dark: #0f172a;  
+  --primary: #1e293b;       
+  --accent: #2563eb;      
+  --accent-hover: #1d4ed8; 
+  --bg-color: #f8fafc;      
+  --text-main: #334155;    
+  --text-light: #94a3b8;    
+  --ia-bubble: #ffffff;    
+  
+  --chat-bg: rgba(255, 255, 255, 0.7); 
+  --border-color: rgba(0, 0, 0, 0.05);  
+  --glow-shadow: 0 10px 40px -10px rgba(37, 99, 235, 0.15);
+  --scroll-thumb: #cbd5e1;
+  --file-bg: #f8fafc;
+
+  /* NUEVO: Colores sólidos para Modo Claro */
+  --user-bg: #2563eb; 
+  --user-border: #1d4ed8;
+}
+
+/* =========================================
+   🌙 MODO OSCURO (DARK MODE) - NEÓN SUTIL
+   ========================================= */
+body.dark-mode {
+  /* ... tus colores anteriores ... */
+  --primary-dark: rgba(2, 6, 23, 0.8);
+  --primary: #0f172a;        
+  --accent: #3b82f6;         
+  --accent-hover: #60a5fa; 
+  --bg-color: #020617;       
+  --text-main: #f1f5f9;      
+  --text-light: #94a3b8;     
+  --ia-bubble: #1e293b;      
+  
+  --chat-bg: rgba(15, 23, 42, 0.65); 
+  --border-color: rgba(255, 255, 255, 0.08);   
+  --glow-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.25);
+  --scroll-thumb: #475569;
+  --file-bg: #0f172a;
+
+  /* NUEVO: Colores translúcidos para Modo Oscuro */
+  --user-bg: rgba(42, 120, 189, 0.35); 
+  --user-border: rgba(42, 120, 189, 0.3);
+}
+
+/* Transiciones suaves */
+body, .app-container, .header, .chat-container, .bubble, .input-area, input, button, .admin-card {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- CONTENEDOR PRINCIPAL (AHORA CON GRID) --- */
+.app-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr; /* Header automático, Main toma el resto */
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- CABECERA (HEADER) --- */
+.header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-header {
+  height: 25px;
+  width: auto;
+  margin-right: -5px;
+  border-radius: 4px;
+}
+
+.header h1::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #10b981; 
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
+
+.header-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.theme-toggle, .admin-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+}
+
+.theme-toggle:hover, .admin-toggle:hover {
+  background: white;
+  color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+}
+
+/* --- ÁREA PRINCIPAL (GRID) --- */
+.main-content {
+  display: grid;
+  place-items: center; /* Centra el contenido vertical y horizontalmente */
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* --- CONTENEDOR DEL CHAT (GRID) --- */
+.chat-container {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  max-height: 85vh; /* Evita que crezca hasta el infinito */
+  background: var(--chat-bg);
+  display: grid;
+  grid-template-rows: 1fr auto; /* Fila 1 (Mensajes) toma espacio, Fila 2 (Input) fijo */
+  border-radius: 16px;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1), 0 0 10px rgba(0,0,0,0.02);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+/* --- ÁREA DE MENSAJES --- */
+.messages-area {
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+.messages-area::-webkit-scrollbar { width: 6px; }
+.messages-area::-webkit-scrollbar-track { background: transparent; }
+.messages-area::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 10px; }
+.messages-area::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
+
+/* --- GLOBOS DE TEXTO --- */
+.bubble {
+  padding: 14px 22px;
+  border-radius: 18px;
+  max-width: 80%;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.user {
+  background: var(--user-bg);
+  border: 1px solid var(--user-border);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.ia {
+  background: var(--ia-bubble);
+  color: var(--text-main);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.typing {
+  color: var(--text-light);
+  font-style: italic;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* --- ÁREA DE INPUT --- */
+.input-area {
+  padding: 20px 30px;
+  background: var(--chat-bg);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 15px 20px;
+  background: var(--bg-color);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  color: var(--text-main);
+}
+
+.input-area input:focus {
+  background: var(--chat-bg);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* --- BOTÓN DE ENVIAR (CIRCULAR Y CON ÍCONO) --- */
+.input-area button.btn-enviar {
+  background-color: var(--user-bg);
+  border: 1px solid var(--user-border);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(44, 76, 123, 0.25);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.input-area button.btn-enviar svg {
+  transform: translateX(2px); 
+}
+
+.input-area button.btn-enviar:hover:not(:disabled) {
+  filter: brightness(1.2); /* Esto ilumina el botón al pasar el mouse en ambos modos */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 83, 185, 0.35); 
+}
+
+.input-area button.btn-enviar:disabled {
+  background: var(--border-color);
+  border: none;
+  color: var(--text-light);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  filter: none;
+}
+
+/* --- TARJETA DEL PANEL DE ADMIN --- */
+.admin-card {
+  background: var(--chat-bg);
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  height: fit-content;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+  border: 1px solid var(--border-color);
+  margin: auto;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.admin-card h2 {
+  color: var(--text-main);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.admin-card p {
+  color: var(--text-light);
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-form input[type="password"] {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-color);
+  color: var(--text-main);
+  outline: none;
+  font-size: 1rem;
+}
+
+.admin-form input[type="password"]:focus {
+  border-color: var(--accent);
+  background: var(--chat-bg);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.admin-form input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  background: var(--file-bg);
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.admin-form input[type="file"]:hover {
+  border-color: var(--accent);
+  background: var(--chat-bg);
+}
+
+.admin-form button {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.admin-form button:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px rgba(0,0,0,0.3);
+}
+
+/* --- MENSAJES DE ESTADO --- */
+.status-msg {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: fadeIn 0.3s;
+}
+
+body.dark-mode .status-msg.success {
+  background: rgba(5, 150, 105, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+body.dark-mode .status-msg.error {
+  background: rgba(220, 38, 38, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.status-msg.success { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.status-msg.error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  .main-content {
+    padding: 0.5rem;
+    place-items: stretch; /* Se expande a los bordes en celulares */
+  }
+
+  .chat-container {
+    max-height: 100%;
+    border-radius: 12px;
+  }
+
+  .messages-area {
+    padding: 15px;
+  }
+
+  .input-area {
+    padding: 12px 15px;
+    gap: 10px;
+  }
+
+  .input-area input {
+    padding: 12px 15px;
+    font-size: 0.95rem;
+  }
+
+  .input-area button.btn-enviar {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .admin-card {
+    padding: 25px 20px;
+    max-width: 100%;
+  }
+}
